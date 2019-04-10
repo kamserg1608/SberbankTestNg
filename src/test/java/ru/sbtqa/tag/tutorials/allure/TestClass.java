@@ -1,6 +1,7 @@
 package ru.sbtqa.tag.tutorials.allure;
 
 import io.qameta.allure.*;
+import static io.qameta.allure.Allure.step;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -38,6 +39,7 @@ public class TestClass {
     public void testDemoConnectionSuccess() {
         Steps.checkSumStep(3, 2, 5);
         logger1.info("ARTEM");
+        step("ARTEM");
         LOG.warning("DADADADA2");
         Steps.logToAllure("BUGAGA");
         Assert.assertTrue( 1 + 3== 4, "Сумма слагаемых не соответствует ожидаемому значению");
