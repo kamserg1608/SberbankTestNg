@@ -47,6 +47,7 @@ public class TestClass {
     public void testDemoAttachments1() throws IOException {
         CommonFunctions.getBytes("picture.jpg");
         CommonFunctions.getBytes("text.txt");
+        logger1.info("ARTEM");
         Assert.assertTrue(true);
     }
 
