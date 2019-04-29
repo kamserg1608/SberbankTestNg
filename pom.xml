@@ -135,8 +135,12 @@
                 <configuration>
 
                     <!--region TestNG-->
+<!--                    <suiteXmlFiles>-->
+<!--                        <suiteXmlFile>src/test/resources/testng-allure.xml</suiteXmlFile>-->
+<!--                    </suiteXmlFiles>-->
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/testng-allure.xml</suiteXmlFile>
+                        <!--suppress UnresolvedMavenProperty -->
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
                     <!--endregion TestNG-->
 
