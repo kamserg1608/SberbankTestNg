@@ -13,44 +13,78 @@
     <url>http://www.example.com</url>
 
     <properties>
+        <!--region Compilation-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <!--endregion Compilation-->
+
+       <!--region Allure and TestNG-->
+        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+        <!--endregion Allure and TestNG-->
+
+        <!--region Allure-->
         <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
-        <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
         <aspectj.version>1.9.1</aspectj.version>
-        <allure-junit4.version>2.7.0</allure-junit4.version>
         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+        <!--endregion  Allure-->
+
     </properties>
 
     <dependencies>
+
+        <!--region Allure-->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>2.10.0</version>
             <scope>test</scope>
         </dependency>
+        <!--endregion Allure-->
+
+        <!--region TestNg-->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.14.3</version>
             <scope>test</scope>
         </dependency>
+        <!--endregion TestNg-->
+
+        <!--region  Logger - This use logger dependencies for work Allure @Step-->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.25</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.3.0-alpha4</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.11.2</version>
-        </dependency>
+        <!--endregion  Logger-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.apache.maven.plugins</groupId>-->
+<!--            <artifactId>maven-surefire-report-plugin</artifactId>-->
+<!--            <version>3.0.0-M3</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.maven.plugins</groupId>-->
+<!--            <artifactId>maven-project-info-reports-plugin</artifactId>-->
+<!--            <version>3.0.0</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+
+            <!--region Allure-->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${maven-resources-plugin.version}</version>
@@ -79,15 +113,43 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.10.0</version>
+            </plugin>
+            <!--endregion Allure-->
+
+            <!--region TestNG-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7.1</version>
+            </plugin>
+            <!--endregion TestNG-->
+
+            <!--region Allure and TestNG-->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
+
+                    <!--region TestNG-->
+<!--                    <suiteXmlFiles>-->
+<!--                        <suiteXmlFile>src/test/resources/testng-allure.xml</suiteXmlFile>-->
+<!--                    </suiteXmlFiles>-->
+                    <!--endregion TestNG-->
+
+                    <!--region Allure-->
                     <testFailureIgnore>true</testFailureIgnore>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                    <!--endregion Allure-->
+
                 </configuration>
+
+                <!--region Allure-->
                 <dependencies>
                     <dependency>
                         <groupId>org.aspectj</groupId>
@@ -95,12 +157,11 @@
                         <version>${aspectj.version}</version>
                     </dependency>
                 </dependencies>
+                <!--endregion Allure-->
+
             </plugin>
-            <plugin>
-                <groupId>io.qameta.allure</groupId>
-                <artifactId>allure-maven</artifactId>
-                <version>2.9</version>
-            </plugin>
+            <!--endregion Allure and TestNG-->
+
         </plugins>
     </build>
     <reporting>
@@ -108,13 +169,29 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.0</version>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
                 <configuration>
-                    <show>private</show>
-                    <splitindex>true</splitindex>
+                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>3.0.0-M3</version>
+            </plugin>
+            <!--region JavaDoc-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
+<!--                <version>3.1.0</version>-->
+<!--                <configuration>-->
+<!--                    <show>private</show>-->
+<!--                    <splitindex>true</splitindex>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+            <!--endregion JavaDoc-->
+
         </plugins>
     </reporting>
 </project>
