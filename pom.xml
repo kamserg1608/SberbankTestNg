@@ -140,7 +140,7 @@
 <!--                    </suiteXmlFiles>-->
                     <suiteXmlFiles>
                         <!--suppress UnresolvedMavenProperty -->
-                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/testng-proba.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <!--endregion TestNG-->
 
