@@ -20,6 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class TestClass {
     private static final Logger LOG = Logger.getLogger(TestClass.class.getName());
     private static final org.slf4j.Logger logger1 = LoggerFactory.getLogger(TestClass.class);
+    private WorkWithScreenshot workWithScreenshot = new WorkWithScreenshot();
 
     @Test
     public void testDemoConnectionSuccess() {
@@ -49,6 +50,13 @@ public class TestClass {
     @Test
     public void testDemoAttachments1() throws IOException {
         CommonFunctions.getBytes("picture.jpg");
+//        workWithScreenshot = new WorkWithScreenshot();
+
+//        WorkWithScreenshot workWithScreenshot = new WorkWithScreenshot();
+//        String aa = workWithScreenshot.getScreenshot();
+//        CommonFunctions.getBytesScreenshot(aa);
+//        workWithScreenshot.addScreenshotToAllure();
+        CommonFunctions.getScreen("CatDogAndDuck1");
         CommonFunctions.getBytes("text.txt");
         logger1.info("ARTEM");
         Assert.assertTrue(true);
@@ -58,6 +66,7 @@ public class TestClass {
     public void testDemoAttachments2() throws IOException {
         CommonFunctions.getBytesAnnotationWithArgs("json.json");
         Assert.assertTrue(true);
+        CommonFunctions.getScreen("CatDogAndDuck2");
     }
 
     @Test

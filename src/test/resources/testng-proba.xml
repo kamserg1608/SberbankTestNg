@@ -3,7 +3,7 @@
 <suite name="Suite1" verbose="1" >
     <test name="FirstTest2" >
         <classes>
-            <class name="ru.sbtqa.tag.tutorials.allure.TestClass2"></class>
+            <class name="ru.sbtqa.tag.tutorials.allure.TestClass"></class>
         </classes>
     </test>
 </suite>

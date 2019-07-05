@@ -27,17 +27,37 @@
         <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
         <aspectj.version>1.9.1</aspectj.version>
         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+        <allure.testNG.version>2.10.0</allure.testNG.version>
         <!--endregion  Allure-->
+
+        <testNG.version>6.14.3</testNG.version>
 
     </properties>
 
     <dependencies>
+        <!--region for WebDriver-->
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.0</version>
+        </dependency>
+        <!--Endregion for WebDriver-->
+
+
+        <!--region AllureEnvironment-->
+        <dependency>
+            <groupId>com.github.automatedowl</groupId>
+            <artifactId>allure-environment-writer</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!--endregion AllureEnvironment-->
 
         <!--region Allure-->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
-            <version>2.10.0</version>
+            <version>${allure.testNG.version}</version>
             <scope>test</scope>
         </dependency>
         <!--endregion Allure-->
@@ -46,7 +66,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.14.3</version>
+            <version>${testNG.version}</version>
             <scope>test</scope>
         </dependency>
         <!--endregion TestNg-->
@@ -60,16 +80,18 @@
         </dependency>
         <!--endregion  Logger-->
 
-<!--        <dependency>-->
-<!--            <groupId>org.apache.maven.plugins</groupId>-->
-<!--            <artifactId>maven-surefire-report-plugin</artifactId>-->
-<!--            <version>3.0.0-M3</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.maven.plugins</groupId>-->
-<!--            <artifactId>maven-project-info-reports-plugin</artifactId>-->
-<!--            <version>3.0.0</version>-->
-<!--        </dependency>-->
+        <!--region TestNG_site-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.maven.plugins</groupId>-->
+        <!--            <artifactId>maven-surefire-report-plugin</artifactId>-->
+        <!--            <version>3.0.0-M3</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.maven.plugins</groupId>-->
+        <!--            <artifactId>maven-project-info-reports-plugin</artifactId>-->
+        <!--            <version>3.0.0</version>-->
+        <!--        </dependency>-->
+        <!--endregion TestNG_site-->
     </dependencies>
 
     <build>
@@ -151,6 +173,13 @@
                     </argLine>
                     <!--endregion Allure-->
 
+                    <systemPropertyVariables>
+                        <allure.testNG.version>${allure.testNG.version}</allure.testNG.version>
+                        <testNG.version>${testNG.version}</testNG.version>
+                        <maven-surefire-plugin.version>${maven-surefire-plugin.version}</maven-surefire-plugin.version>
+                        <maven-resources-plugin.version>${maven-resources-plugin.version}</maven-resources-plugin.version>
+                    </systemPropertyVariables>
+
                 </configuration>
 
                 <!--region Allure-->
@@ -166,8 +195,18 @@
             </plugin>
             <!--endregion Allure and TestNG-->
 
+            <!--region TestNG and JavaDoc_site-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-site-plugin</artifactId>-->
+            <!--                <version>3.7.1</version>-->
+            <!--            </plugin>-->
+            <!--endregion TestNG and JavaDoc_site-->
+
         </plugins>
     </build>
+
+
     <reporting>
         <excludeDefaults>true</excludeDefaults>
         <plugins>
@@ -182,7 +221,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>${maven-surefire-plugin.version}</version>
             </plugin>
             <!--region JavaDoc-->
             <plugin>
